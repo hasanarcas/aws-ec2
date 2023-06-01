@@ -156,8 +156,9 @@ def caption_this_image(image):
         result.remove(i)
     result_join = ' '.join(result)
     result_final = result_join.rsplit(' ', 1)[0]
-    result_final = translator.translate(result_final, dest='tr')
-    return result_final.text
+    result_final = translator.translate(result_final, dest='tr').text
+    print("Final Result is ------------------>>>>>>>>>>>>>>>" + result_final)
+    return result_final
 
 app = Flask(__name__)
 
