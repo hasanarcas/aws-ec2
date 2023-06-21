@@ -3,9 +3,8 @@ import tensorflow as tf
 from tensorflow.keras.preprocessing import image as IMAGE
 from flask import Flask, request, jsonify
 import pickle
-from googletrans import Translator
+import translators as ts
 
-translator = Translator()
 class BahdanauAttention(tf.keras.Model):
     def __init__(self, units):
         super(BahdanauAttention, self).__init__()
@@ -156,9 +155,9 @@ def caption_this_image(image):
         result.remove(i)
     result_join = ' '.join(result)
     result_final = result_join.rsplit(' ', 1)[0]
-    result_final = translator.translate(result_final, dest='tr').text
-    print("Final Result is ------------------>>>>>>>>>>>>>>>" + result_final)
-    return result_final
+    result_final_tr = ts.translate_text(result_final, translator='google', to_language='tr') 
+    print("Final Result is ------------------>>>>>>>>>>>>>>>" + result_final_tr)
+    return result_final_tr
 
 app = Flask(__name__)
 
